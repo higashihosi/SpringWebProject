@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kim.spring.oreurak">
+
+<select id="OreurakSelectAll" resultType="OreurakDTO">
+
+select 
+id, phone, cnumber, aenent, atrend, to_char(signdate, 'YYYY/MM/DD') as signdate 
+from new
+</select>
+
+<select id="OreurakSelect" parameterType="OreurakDTO" resultType="OreurakDTO" >
+
+select 
+id, phone, cnumber, aenent, atrend, to_char(signdate, 'YYYY/MM/DD') as signdate  
+from new
+where id = #{id} 
+
+</select>
+
+<select id="OreurakInsert" parameterType="OreurakDTO">
+insert 
+into new(id,phone,cnumber,aenent,atrend,signdate)
+values (#{id},#{phone},#{cnumber},#{aenent},#{atrend},#{signdate} ) 
+
+</select>
+
+<select id="OreurakUpdate" parameterType="OreurakDTO">
+
+update 
+new set phone = #{phone}, cnumber = #{cnumber}, aenent = #{aenent}, atrend = #{atrend} , signdate  = #{signdate }
+where id = #{id}
+
+</select>
+
+
+<select id="OreurakDelete" parameterType="OreurakDTO">
+
+delete 
+from new
+where id = #{id}
+
+</select>
+	<select id="login" resultType="int" parameterType="OreurakDTO">
+	select count(*)
+	from new
+	where id=#{id} and cnumber=#{cnumber}
+	</select>
+
+</mapper>
